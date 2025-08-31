@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:productlist/screens/update_product.dart';
+
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
@@ -41,7 +43,7 @@ class ProductItem extends StatelessWidget {
               },
               onSelected: (ProductOpt selectedOption) {
                 if(selectedOption == ProductOpt.update){
-
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>UpdateProduct()),);
                 }else{
                   print('delete');
                 }

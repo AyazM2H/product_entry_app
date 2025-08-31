@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../widgets/product_items.dart';
 import 'add_new_product.dart';
+import 'update_product.dart';
 
 class ProductionList extends StatefulWidget {
   const ProductionList({super.key});
