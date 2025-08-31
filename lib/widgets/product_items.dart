@@ -1,57 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:productlist/models/product.dart';
 import 'package:productlist/screens/update_product.dart';
 
 
-class ProductItem extends StatelessWidget {
-  const ProductItem({
-    super.key,
+class ProductItems extends StatelessWidget {
+  const ProductItems({
+    super.key, required this.product,
   });
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 5,
-      itemBuilder: (context, index) {
-        return Card(
-          elevation: 4,
-          margin: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-          child: ListTile(
-            leading: CircleAvatar(),
-            title: Text('Product Name'),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return Card(
+      elevation: 4,
+      margin: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+      child: ListTile(
+        leading: CircleAvatar(),
+        title: Text(product.name),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Code: ${product.code}'),
+            Row(
+              spacing: 16,
               children: [
-                Text('Product code'),
-                Row(
-                  spacing: 16,
-                  children: [Text('Quantity'), Text('Unit price')],
-                ),
-              ],
+                Text('Quantity: ${product.quantity}'),
+                Text('Unit price ${product.unitPrice}')],
             ),
-            trailing: PopupMenuButton<ProductOpt>(
-              itemBuilder: (context) {
-                return [
-                  PopupMenuItem(
-                    value: ProductOpt.update,
-                    child: Text('Update'),
-                  ),
-                  PopupMenuItem(
-                    value: ProductOpt.delete,
-                    child: Text('Delete'),
-                  ),
-                ];
-              },
-              onSelected: (ProductOpt selectedOption) {
-                if(selectedOption == ProductOpt.update){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>UpdateProduct()),);
-                }else{
-                  print('delete');
-                }
-              },
-            ),
-          ),
-        );
-      },
+          ],
+        ),
+
+        trailing: PopupMenuButton<ProductOpt>(
+          itemBuilder: (context) {
+            return [
+              PopupMenuItem(
+                value: ProductOpt.update,
+                child: Text('Update'),
+              ),
+              PopupMenuItem(
+                value: ProductOpt.delete,
+                child: Text('Delete'),
+              ),
+            ];
+          },
+          onSelected: (ProductOpt selectedOption) {
+            if(selectedOption == ProductOpt.update){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>UpdateProduct()),);
+            }else{
+              print('delete');
+            }
+          },
+        ),
+      ),
     );
   }
 }

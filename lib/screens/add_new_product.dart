@@ -59,6 +59,7 @@ class _NewProductState extends State<NewProduct> {
                     TextFormField(
                       textInputAction: TextInputAction.next,
                       controller: _codeTEController,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         labelText: 'Product Code',
                         border: OutlineInputBorder(
@@ -151,7 +152,7 @@ class _NewProductState extends State<NewProduct> {
 
     Map<String, dynamic> requestBody = {
       "ProductName": _nameTEController.text.trim(),
-      "ProductCode": _codeTEController.text.trim(),
+      "ProductCode": int.parse(_codeTEController.text.trim()),
       "Img": _imgTEController.text.trim(),
       "Qty": int.parse(_quantityTEController.text.trim()),
       "UnitPrice": int.parse(_upriceTEController.text.trim()),
