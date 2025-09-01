@@ -78,7 +78,9 @@ class _ProductItemsState extends State<ProductItems> {
           },
           onSelected: (ProductOpt selectedOption) {
             if(selectedOption == ProductOpt.update){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>UpdateProduct()),);
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                  UpdateProduct(product: widget.product,
+              )),);
             }else{
               _deleteProductInfo();
             }
