@@ -199,13 +199,6 @@ class _UpdateProductState extends State<UpdateProduct> {
     setState(() {});
   }
 
-  // void _clearTxtField(){
-  //   _nameTEController.clear();
-  //   _codeTEController.clear();
-  //   _imgTEController.clear();
-  //   _quantityTEController.clear();
-  //   _upriceTEController.clear();
-  // }
 
   @override
   void dispose() {

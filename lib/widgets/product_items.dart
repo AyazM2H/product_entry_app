@@ -43,10 +43,10 @@ class _ProductItemsState extends State<ProductItems> {
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
       child: ListTile(
         leading: Image.network(
-          width: 30,
+          width: 40,
             widget.product.img,
             errorBuilder: (_, __, ___){
-              return Icon(Icons.error_outline, size: 30,);
+              return Icon(Icons.error_outline, size: 40,);
             },
           ),
         title: Text(widget.product.name),
@@ -54,12 +54,8 @@ class _ProductItemsState extends State<ProductItems> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Code: ${widget.product.code}'),
-            Row(
-              spacing: 16,
-              children: [
-                Text('Quantity: ${widget.product.quantity}'),
-                Text('Unit price ${widget.product.unitPrice}')],
-            ),
+            Text('Quantity: ${widget.product.quantity}'),
+            Text('Unit price ${widget.product.unitPrice}')
           ],
         ),
 
