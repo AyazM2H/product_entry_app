@@ -18,6 +18,8 @@ class ProductionList extends StatefulWidget {
 
 class _ProductionListState extends State<ProductionList> {
   List<Product> _productList = [];
+  bool _getProductInProgress = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -26,6 +28,9 @@ class _ProductionListState extends State<ProductionList> {
   }
 
   Future<void> _getProductInfo() async{
+    _getProductInProgress = true;
+    setState(() {});
+    _productList.clear();
     Uri uri = Uri.parse(Urls.getProductUrl);
 
     Response response = await get(uri);
@@ -38,18 +43,11 @@ class _ProductionListState extends State<ProductionList> {
     if(response.statusCode == 200){
       final decodedJson = jsonDecode(response.body);
       for(Map<String, dynamic> productJson in decodedJson['data']){
-        Product product = Product();
-        product.id = productJson['_id'];
-        product.name = productJson['ProductName'];
-        product.code = productJson['ProductCode'];
-        product.img = productJson['Img'];
-        product.quantity = productJson['Qty'];
-        product.unitPrice = productJson['UnitPrice'];
-        product.totalPrice = productJson['TotalPrice'];
-
+        Product product = Product.fromJson(productJson);
         _productList.add(product);
       }
     }
+    _getProductInProgress = false;
     setState(() {});
   }
 
@@ -58,16 +56,30 @@ class _ProductionListState extends State<ProductionList> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Production List',
+          'Product List',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
+        actions: [
+          IconButton(onPressed: (){
+            _getProductInfo();
+          },
+              icon: Icon(Icons.refresh, color: Colors.white,))
+        ],
         backgroundColor: Colors.green,
       ),
-      body: ListView.builder(
-          itemCount: _productList.length,
-          itemBuilder: (context, index){
-        return ProductItems(product: _productList[index]);
-      }),
+      body: Visibility(
+        visible: _getProductInProgress == false,
+        replacement: Center(
+          child: CircularProgressIndicator(),
+        ),
+        child: ListView.builder(
+            itemCount: _productList.length,
+            itemBuilder: (context, index){
+          return ProductItems(product: _productList[index], refreshProductList: () {
+            _getProductInfo();
+          },);
+        }),
+      ),
 
       floatingActionButton: FloatingActionButton(
         shape: CircleBorder(),
